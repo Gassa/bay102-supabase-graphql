@@ -1,5 +1,5 @@
 schema: ./graphql/schema/schema.graphql
-documents: ./app/**/*.{graphql,js,ts,jsx,tsx}
+# documents: ./app/**/*.{graphql,js,ts,jsx,tsx}
 extensions:
   codegen:
     generates:

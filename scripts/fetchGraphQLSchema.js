@@ -14,7 +14,7 @@ const {
 
 const supagradient = gradient(["#00CB8A", "#78E0B8"]);
 
-function fetchGraphQLSchema(url, options) {
+async function fetchGraphQLSchema(url, options) {
   options = options || {}; // eslint-disable-line no-param-reassign
 
   const bar = new ProgressBar("🔦  Introspecting schema [:bar]", 24);
@@ -37,14 +37,17 @@ function fetchGraphQLSchema(url, options) {
       query: getIntrospectionQuery(),
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      return res.json();
+    })
     .then((schemaJSON) => {
       if (options.readable) {
         return printSchema(buildClientSchema(schemaJSON.data));
       }
 
       bar.complete();
-      return JSON.stringify(schemaJSON, null, 2);
+      const schemaStr = JSON.stringify(schemaJSON, null, 2);
+      return schemaStr;
     });
 }
 
